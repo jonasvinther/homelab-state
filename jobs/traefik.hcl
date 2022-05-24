@@ -1,11 +1,14 @@
 job "traefik" {
   region      = "global"
   datacenters = ["dc1"]
-  type        = "service"
+  type        = "system"
+
+  constraint {
+    attribute = "${meta.type}"
+    value     = "server"
+  }
 
   group "traefik" {
-    count = 1
-
     network {
       port "http" {
         static = 80
